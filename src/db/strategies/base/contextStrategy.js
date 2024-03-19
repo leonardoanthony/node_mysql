@@ -8,17 +8,20 @@ class ContextStrategy extends ICrud{
         this._database = strategy;
     }
 
-    add(){
-        return this._database.create();
+    add(task){
+        return this._database.add(task);
     }
     list(){
-        return this._database.read();
+        return this._database.list();
     }
     edit(){
-        return this._database.update();
+        return this._database.edit();
     }
     delete(){
         return this._database.delete();
+    }
+    completeTask(){
+        return this._database.completeTask();
     }
     connect(){
         return this._database.connect();

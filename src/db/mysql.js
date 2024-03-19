@@ -18,6 +18,34 @@ class MySQL extends ICrud{
                 dialect: 'mysql'
             }
         )
+
+        this.defineModel();
+    }
+
+    async defineModel(){
+        this._tarefas = this._driver.define('tarefas', {
+            id: {
+                type: Sequelize.INTEGER,
+                required: true,
+                primaryKey: true,
+                autoIncrement: true,
+            },
+            descricao: {
+                type: Sequelize.STRING,
+                require: true,
+            }, 
+            concluida: {
+                type: Sequelize.INTEGER,
+                require: true,
+                defaultValue: 0
+            }
+
+        },{
+            tableName: 'tarefas',
+            freezeTableName: false,
+            timestamps: false
+        }
+        )
     }
 
     async isConnected(){
@@ -29,6 +57,15 @@ class MySQL extends ICrud{
             return false
         }
     }
+
+    async add(task){
+        const {dataValues} = await this._tarefas.create(task);
+        delete dataValues.id;
+        delete dataValues.concluida;
+        return dataValues;
+    }
+
+
 
 
 }
