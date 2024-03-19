@@ -1,4 +1,4 @@
-class NotImplementedException extends Exception {
+class NotImplementedException extends Error {
     constructor(){
         super("Not Implemented Exception")
     }
@@ -14,15 +14,15 @@ class ICrud{
         throw new NotImplementedException();
     }
 
-    create(task){
+    add(task){
         throw new NotImplementedException();
     }
 
-    read(params){
+    list(params){
         throw new NotImplementedException();
     }
     
-    update(id, newTask){
+    edit(id, newTask){
         throw new NotImplementedException();
     }
     
@@ -35,3 +35,5 @@ class ICrud{
     }   
 
 }
+
+module.exports = ICrud;
