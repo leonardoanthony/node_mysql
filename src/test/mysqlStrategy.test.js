@@ -10,11 +10,16 @@ const MOCK_TAREFA_CADASTRAR = {
     descricao: 'Realizar teste de software',
 }
 
+const MOCK_TAREFA_ATUALIZAR = {
+    descricao: 'Atualizar tarefa',
+}
+
 
 describe('MySQL Strategy', function() {
 
     this.beforeAll(async function(){
         context.connect();
+        context.add(MOCK_TAREFA_ATUALIZAR);
     })
 
     it('MySQL Connect', async function(){
@@ -32,5 +37,18 @@ describe('MySQL Strategy', function() {
         delete result.id;
         delete result.concluida;
         assert.deepEqual(result, MOCK_TAREFA_CADASTRAR);
+    });
+    
+    it('Update Task', async function() {
+        const item = await context.list({descricao: MOCK_TAREFA_ATUALIZAR.descricao});
+        
+        const novoItem = {
+            ...item,
+            descricao: 'Item Atualizado',
+        }
+        
+        await context.edit(item.id, novoItem);
+        const itemUpdated = await context.list({descricao: novoItem.descricao});
+        assert.deepEqual(itemUpdated, novoItem);
     });
 });

@@ -70,6 +70,17 @@ class MySQL extends ICrud{
         return result;
     }
 
+    async edit(idTask, newTask) {
+        const result = await this._tarefas.update({...newTask}, {
+            where: {
+                id: idTask,
+            }
+        });
+
+        
+        return result;
+    }
+
 
 
 
