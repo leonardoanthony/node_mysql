@@ -10,7 +10,7 @@ class MySQL extends ICrud{
 
     connect(){
         this._driver = new Sequelize(
-            'tarefas',
+            'todo_list',
             'root',
             '',
             {
@@ -18,6 +18,16 @@ class MySQL extends ICrud{
                 dialect: 'mysql'
             }
         )
+    }
+
+    async isConnected(){
+        try {
+            await this._driver.authenticate();
+            return true;
+        } catch (error) {
+            console.error('Fail!', error);
+            return false
+        }
     }
 
 
