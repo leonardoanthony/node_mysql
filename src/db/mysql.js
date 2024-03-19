@@ -65,6 +65,11 @@ class MySQL extends ICrud{
         return dataValues;
     }
 
+    async list(params = {}){
+        const [result] = await this._tarefas.findAll({where: params, raw: true});
+        return result;
+    }
+
 
 
 

@@ -25,5 +25,12 @@ describe('MySQL Strategy', function() {
     it('Create task', async function(){
         const result = await context.add(MOCK_TAREFA_CADASTRAR);
         assert.deepEqual(result, MOCK_TAREFA_CADASTRAR);
-    })
+    });
+
+    it('List tasks', async function(){
+        const result = await context.list({descricao: MOCK_TAREFA_CADASTRAR.descricao});
+        delete result.id;
+        delete result.concluida;
+        assert.deepEqual(result, MOCK_TAREFA_CADASTRAR);
+    });
 });
