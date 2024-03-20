@@ -19,6 +19,7 @@ describe('MySQL Strategy', function() {
 
     this.beforeAll(async function(){
         context.connect();
+        context.truncate();
         context.add(MOCK_TAREFA_ATUALIZAR);
     })
 
@@ -50,5 +51,13 @@ describe('MySQL Strategy', function() {
         await context.edit(item.id, novoItem);
         const itemUpdated = await context.list({descricao: novoItem.descricao});
         assert.deepEqual(itemUpdated, novoItem);
+    });
+
+    it('Delete Task', async function(){
+        const item = await context.list({descricao: MOCK_TAREFA_CADASTRAR.descricao});
+
+        const result = await context.delete(item.id);
+
+        assert.deepEqual(result, true);
     });
 });
