@@ -13,6 +13,9 @@ const MOCK_TAREFA_CADASTRAR = {
 const MOCK_TAREFA_ATUALIZAR = {
     descricao: 'Atualizar tarefa',
 }
+const MOCK_TAREFA_COMPLETAR = {
+    descricao: 'Tarefa comcluída',
+}
 
 
 describe('MySQL Strategy', function() {
@@ -21,6 +24,7 @@ describe('MySQL Strategy', function() {
         context.connect();
         context.truncate();
         context.add(MOCK_TAREFA_ATUALIZAR);
+        context.add(MOCK_TAREFA_COMPLETAR);
     })
 
     it('MySQL Connect', async function(){
@@ -59,5 +63,20 @@ describe('MySQL Strategy', function() {
         const result = await context.delete(item.id);
 
         assert.deepEqual(result, 1);
+    });
+
+    it('Complete Task', async function() {
+        const item = await context.list({descricao: MOCK_TAREFA_COMPLETAR.descricao})
+        
+        await context.completeTask(item.id);
+        
+        const itemCompleted = await context.list({id: item.id});
+
+        const expected = {
+            ...item,
+            concluida: 1
+        }
+
+        assert.deepEqual(itemCompleted, expected);
     });
 });

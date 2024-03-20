@@ -97,6 +97,16 @@ class MySQL extends ICrud{
         return result;
     }
 
+    async completeTask(id){
+        const result = await this._tarefas.update({concluida: 1}, {
+            where: {
+                id
+            }
+        });
+
+        return result;
+    }
+
 
 
 
