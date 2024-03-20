@@ -59,7 +59,7 @@ class MySQL extends ICrud{
     }
 
     async truncate(){
-        
+
         await this._tarefas.destroy({
             truncate: true,
         });
@@ -83,6 +83,16 @@ class MySQL extends ICrud{
                 id: idTask,
             }
         });
+
+        return result;
+    }
+
+    async delete(id){
+        const result = await this._tarefas.destroy({
+            where: {
+                id,
+            }
+        })
 
         return result;
     }

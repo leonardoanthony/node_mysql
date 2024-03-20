@@ -58,6 +58,6 @@ describe('MySQL Strategy', function() {
 
         const result = await context.delete(item.id);
 
-        assert.deepEqual(result, true);
+        assert.deepEqual(result, 1);
     });
 });
